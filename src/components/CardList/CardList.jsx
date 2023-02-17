@@ -7,7 +7,13 @@ import "../Card/Card.scss"
 const CardList = () => {
 
     const rublRef = useRef(null);
-    const [rubl,setRubl] = useState("")
+
+    const [numberSpace, setNumberSpace] = useState(0)
+    const [rublNumber, setRublNumber] = useState("")
+    const [rubl, setRubl] = useState({
+        pos: rublRef?.selectionStart || 0,
+        currensy: ""
+    })
 
     const setCaretPosition = useCallback((ctrl, pos) => {
         // Modern browsers
@@ -25,19 +31,43 @@ const CardList = () => {
         }
     }, [])
 
-    useEffect(() =>{
-        const rublInput = rublRef.current
-        if(rublInput.selectionStart === rublInput.value.length){
-            setCaretPosition(rublInput, rublInput.value.length - 2);
-        }else{
-            setCaretPosition(rublInput, rublInput.selectionStart);
-        }
-    },[rubl])
+    const regector = useCallback((value) => {
+        return value.replace(/\D/g, '').replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ')
+    },[])
 
-    function Rubl(event) {
+    useEffect(() => {
+        const rublInput = rublRef.current
+        if (rubl.pos === rublInput.value.length) {
+            setCaretPosition(rublInput, rublInput.value.length - 2);
+        } else {
+            setCaretPosition(rublInput, rubl.pos);
+        }
+
+        const count = rublInput.value.split(" ").length
+        setNumberSpace(count)
+    }, [rubl])
+
+    useEffect(() => {
+        setRubl(prev => {
+            return {
+                ...prev,
+                pos: prev.pos + 1
+            }
+        })
+
+    }, [numberSpace])
+
+    const rublHandler = (event) => {
         const rublInput = event.target;
-        
-        setRubl(rublInput.value && rublInput.value.replace(/\D/g, '').replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ') + ' ₽');
+
+        setRubl({
+            pos: rublInput.selectionStart,
+            currensy: rublInput.value && regector(rublInput.value) + ' ₽'
+        });
+    }
+
+    const changeHandler = (e) => {
+        setRublNumber(regector(e.target.value))
     }
 
     return (
@@ -54,8 +84,9 @@ const CardList = () => {
                             Стоимость автомобиля
                         </div>
                         <div className="cart__field">
-                            <input type="number" defaultValue="3 000 000" placeholder="3 000 000" />
+                            <input value={rublNumber} onChange={changeHandler} type="text" placeholder="3 000 000" />
                             <span className="cart__badge">₽</span>
+                            range
                         </div>
                     </label>
                     <label className="cart__item">
@@ -63,7 +94,7 @@ const CardList = () => {
                             Первоначальный взнос
                         </div>
                         <div className="cart__field">
-                            <input ref={rublRef} value={rubl} onChange={Rubl} placeholder="420 000 ₽" />
+                            <input ref={rublRef} value={rubl.currensy} onChange={rublHandler} placeholder="420 000 ₽" />
                             <span className="cart__badge-color">13%</span>
                         </div>
                     </label>
