@@ -227,26 +227,45 @@ body {
         }
     }
 
+    &__range {
+        padding: 0 24px;
+    }
+
 
     &__badge-color {
         width: 69px;
         height: 54px;
         background: #EBEBEC;
         border-radius: 16px;
+        font-size: 20px;
+        line-height: 24px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 20px;
-        line-height: 24px;
         color: #575757;
         position: absolute;
         top: 7px;
         right: 7px;
+        @media (max-width: 767px) {
+            font-size: 22px;
+            line-height: 20px;
+        }
+
     }
 
     &__badge {
         position: absolute;
         top: 22px;
         right: 24px;
+        font-size: 30px;
+        line-height: 36px;
+
+        @media (max-width: 767px) {
+            font-size: 22px;
+            line-height: 20px;
+        }
     }
 }
+
+
+.range-slider {}

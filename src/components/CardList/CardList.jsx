@@ -1,6 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-// import Card from "../Card/Card";
-// import { CatList } from "./Data"
+import 'toolcool-range-slider';
 import "../Card/Card.scss"
 
 
@@ -33,7 +32,7 @@ const CardList = () => {
 
     const regector = useCallback((value) => {
         return value.replace(/\D/g, '').replace(/(\d)(?=(\d{3})+([^\d]|$))/g, '$1 ')
-    },[])
+    }, [])
 
     useEffect(() => {
         const rublInput = rublRef.current
@@ -86,7 +85,23 @@ const CardList = () => {
                         <div className="cart__field">
                             <input value={rublNumber} onChange={changeHandler} type="text" placeholder="3 000 000" />
                             <span className="cart__badge">₽</span>
-                            range
+                            <div className="cart__range">
+                                <toolcool-range-slider
+                                    value="70"
+                                    slider-height="2px"
+                                    pointer-width="20px"
+                                    pointer-height="20px"
+                                    slider-bg="#E1E1E1"
+                                    slider-bg-hover="silver"
+                                    slider-bg-fill="#FF9514"
+                                    pointer-bg="#FF9514"
+                                    pointer-bg-hover="#FF9514"
+                                    pointer-bg-focus="#FF9514"
+                                    pointer-border="1px solid transparent"
+                                    pointer-border-hover="1px solid transparent"
+                                    pointer-border-focus="1px solid transparent"
+                                    slider-width="100%"></toolcool-range-slider>
+                            </div>
                         </div>
                     </label>
                     <label className="cart__item">
@@ -96,6 +111,23 @@ const CardList = () => {
                         <div className="cart__field">
                             <input ref={rublRef} value={rubl.currensy} onChange={rublHandler} placeholder="420 000 ₽" />
                             <span className="cart__badge-color">13%</span>
+                            <div className="cart__range">
+                                <toolcool-range-slider
+                                    value="70"
+                                    slider-height="2px"
+                                    pointer-width="20px"
+                                    pointer-height="20px"
+                                    slider-bg="#E1E1E1"
+                                    slider-bg-hover="silver"
+                                    slider-bg-fill="#FF9514"
+                                    pointer-bg="#FF9514"
+                                    pointer-bg-hover="#FF9514"
+                                    pointer-bg-focus="#FF9514"
+                                    pointer-border="1px solid transparent"
+                                    pointer-border-hover="1px solid transparent"
+                                    pointer-border-focus="1px solid transparent"
+                                    slider-width="100%"></toolcool-range-slider>
+                            </div>
                         </div>
                     </label>
                     <label className="cart__item disabled">
@@ -105,6 +137,23 @@ const CardList = () => {
                         <div className="cart__field">
                             <input type="number" defaultValue="60" placeholder="60" />
                             <span className="cart__badge">мес.</span>
+                            <div className="cart__range">
+                                <toolcool-range-slider
+                                    value="70"
+                                    slider-height="2px"
+                                    pointer-width="20px"
+                                    pointer-height="20px"
+                                    slider-bg="#E1E1E1"
+                                    slider-bg-hover="silver"
+                                    slider-bg-fill="#FF9514"
+                                    pointer-bg="#FF9514"
+                                    pointer-bg-hover="#FF9514"
+                                    pointer-bg-focus="#FF9514"
+                                    pointer-border="1px solid transparent"
+                                    pointer-border-hover="1px solid transparent"
+                                    pointer-border-focus="1px solid transparent"
+                                    slider-width="100%"></toolcool-range-slider>
+                            </div>
                         </div>
                     </label>
                     <div className="cart__item">
